@@ -15,7 +15,6 @@ export class MarkdownTreeApi {
 			trailingDirSlash: settings.trailing,
 			charset: settings.fancy ? 'utf-8' : 'ascii'
 		} as  GenerateTreeOptions;
-		generateTree(parseInput(source), options);
 		const tree = generateTree(parseInput(source), options);
 		const pre = element.createEl('pre')
 		pre.setText(tree);
