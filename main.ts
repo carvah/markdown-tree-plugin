@@ -1,7 +1,8 @@
-import {App, Editor, MarkdownView, Plugin, PluginSettingTab, Setting,} from 'obsidian';
+import {App, Editor, MarkdownView, Plugin, PluginSettingTab, Setting, Vault,} from 'obsidian';
 import {MarkdownTreeApi} from './api/markdown-tree-api';
 import {MarkdownTreeSettings} from './api/models/markdown-tree-settings';
 import {DEFAULT_SETTINGS} from './api/consts/default-settings';
+import {NewTreeBlockCommand} from './api/commands/new-tree-block-command';
 
 export default class MarkdownTree extends Plugin {
 	settings: MarkdownTreeSettings;
@@ -11,14 +12,7 @@ export default class MarkdownTree extends Plugin {
 
 		this.registerMarkdownCodeBlockProcessor('markdown-tree', (source, el, ctx) => this.api.handle(this.settings, source, el, ctx));
 		
-		// This adds an editor command that can perform some operation on the current editor instance
-		this.addCommand({
-			id: 'markdown-tree-generator-command',
-			name: '(Markdown Tree) New tree block',
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				editor.replaceSelection('``` directory-tree \n root \n```');
-			}
-		});
+		this.addCommand(new NewTreeBlockCommand());
 		
 		this.addSettingTab(new ObsidianTreeSettingsTabSettingTab(this.app, this));
 	}
@@ -48,9 +42,7 @@ class ObsidianTreeSettingsTabSettingTab extends PluginSettingTab {
 		const {containerEl} = this;
 
 		containerEl.empty();
-
-		containerEl.createEl('h2', {text: 'Obsidian Tree'});
-
+		
 		new Setting(containerEl)
 			.setName('Fancy')
 			.setDesc('Enables/disables the fancy characters of the tree')

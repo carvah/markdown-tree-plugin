@@ -3,7 +3,7 @@
 	"name": "Markdown Tree",
 	"version": "0.1.0",
 	"minAppVersion": "0.15.0",
-	"description": "Added initial functionality with possibility to parse enters, spaces, tabs in the MD view and render in fancy style. Added settings tab.",
+	"description": "Create a beautiful and intuitive directory tree using Markdown-oriented code style using tabs, spaces and enters.",
 	"author": "carvah",
 	"authorUrl": "https://github.com/carvah",
 	"isDesktopOnly": false
